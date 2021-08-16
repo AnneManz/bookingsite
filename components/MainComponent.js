@@ -5,9 +5,10 @@ import CampsiteInfo from './CampsiteInfoComponent';
 import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Constants from 'expo-constants';
-import Reservation from './ReservationComponent';
+import Booking from './BookingComponent';
 import Favorites from './FavoritesComponent';
 import Login from './LoginComponent';
+import Gallery from './GalleryComponent';
 import { View, Platform, StyleSheet, Text, ScrollView, Image,
     Alert, ToastAndroid } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -80,6 +81,29 @@ const HomeNavigator = createStackNavigator(
     }
 );
 
+const GalleryNavigator = createStackNavigator(
+    {
+        Gallery: {screen: Gallery}
+    },
+    {
+        defaultNavigationOptions: ({navigation}) => ({
+            headerStyle: {
+                backgroundColor: '#5637DD'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            },
+            headerLeft: <Icon
+                name='images'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        })
+    }
+)
+
 const AboutNavigator = createStackNavigator(
     {
         About: {screen: About}
@@ -126,9 +150,9 @@ const ContactNavigator = createStackNavigator(
     }
 );
 
-const ReservationNavigator = createStackNavigator(
+const BookingNavigator = createStackNavigator(
     {
-        Reservation: { screen: Reservation }
+        Booking: { screen: Booking }
     },
     {
         defaultNavigationOptions: ({navigation}) => ({
@@ -140,7 +164,7 @@ const ReservationNavigator = createStackNavigator(
                 color: '#fff'
             },
             headerLeft: <Icon
-                name='tree'
+                name='calendar'
                 type='font-awesome'
                 iconStyle={styles.stackIcon}
                 onPress={() => navigation.toggleDrawer()}
@@ -255,13 +279,26 @@ const MainNavigator = createDrawerNavigator(
                 )
             }
         },
-        Reservation: {
-            screen: ReservationNavigator,
+        Gallery: { 
+            screen: GalleryNavigator,
             navigationOptions: {
-                drawerLabel: 'Reserve Campsite',
                 drawerIcon: ({tintColor}) => (
                     <Icon
-                        name='tree'
+                        name='images'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
+        Booking: {
+            screen: BookingNavigator,
+            navigationOptions: {
+                drawerLabel: 'Book a Session',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='calendar'
                         type='font-awesome'
                         size={24}
                         color={tintColor}
